@@ -1,0 +1,14 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+canvas{
+    border: 2px solid #dddddd;
+    background-image: url(./background/background-1.jpg);
+}
+
+img{
+    display: block;
+}
