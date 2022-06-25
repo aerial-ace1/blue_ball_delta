@@ -26,24 +26,6 @@ class ball {
         this.gravity = 0.5
         this.color = colors[1];
 
-        this.update = function () {
-
-            for (var i = 0; i < platform_list.length; i++) {
-                console.log(platform_list[i].y - this.y);
-                if (this.y < platform_list[i].y && platform_list[i].y - this.y - this.dy < this.height) {
-                    console.log(platform_list[i].y - this.y);
-                    this.dy = platform_list[i].speed;
-                    this.y += this.dy;
-                    this.draw();
-                    return 0;
-                }
-            }
-            this.dy += this.gravity;
-            this.y += this.dy;
-
-            this.draw();
-        };
-
         this.draw = function () {
             c.beginPath();
             c.rect(this.x, this.y, this.height, this.height);
@@ -52,6 +34,49 @@ class ball {
             c.stroke();
             c.closePath();
         };
+        
+        this.update = function () {
+
+            if (this.y  < 20 || this.y > 150){
+                unanimate();
+            }
+
+            for (var i = 0; i < platform_list.length; i++) {
+                if (this.y < platform_list[i].y &&
+                     platform_list[i].y - this.y - this.dy < this.height && 
+                     Math.abs(platform_list[i].x + platform_list[i].width/2 - this.x - this.height/2) < platform_list[i].width/2) {
+                    this.dy = platform_list[i].speed;
+                    this.y += this.dy;
+                    this.draw();
+                    return 0;
+                }
+            }
+
+
+            this.dy += this.gravity;
+            this.y += this.dy;
+
+            this.draw();
+        };
+
+        this.move = function(event) {
+
+            if (this.x === canvas.width || this.x === 0) {
+                this.dx = -this.dx
+            }
+
+            if(event.code === 'ArrowRight'){
+
+                this.dx += 1 + this.gravity;
+            }
+
+            if(event.code === 'ArrowLeft'){
+                this.dx -= 1 + this.gravity;
+            }
+
+            this.x += this.dx;
+            this.draw();
+        }
     }
 }
 
@@ -65,8 +90,9 @@ class platform {
         this.height = height;
 
         this.draw = function () {
-            c.fillRect(this.x, this.y, this.width, this.height);
             c.fillStyle = colors[0];
+            c.fillRect(this.x, this.y, this.width, this.height);
+            
             c.fill();
         };
 
@@ -87,20 +113,17 @@ class platform {
 
 function one_platform( x = null, y = 300, width = null){
 
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    /*do {
-        if (this.x === null){
-            this.x = Math.floor(Math.random() * canvas.width);
-        }
+    
+    if (x === null){
+        x = Math.floor(Math.random() * canvas.width);
+    }
 
-        if (this.width === null){
-            this.x = Math.floor(Math.random() * canvas.width);
-        }
-    } while (this.x + this.width < canvas.width)*/
-    let single_platform = new platform( this.x, this.y, -1, this.width, 10);
-    return single_platform;
+    if (width === null){
+        width = Math.floor(Math.random() * canvas.width);
+    }
+    let single_platform = new platform( x, y, -1, width, 10);
+    platform_list.push(single_platform);
+    platform_list[platform_list.length -1 ].draw();
 
 }
 
@@ -118,7 +141,7 @@ function two_platform( x = 0, y = 305 ){
 }
 
 // Event Listeners
-addEventListener('mousemove', (event) => {
+/*addEventListener('mousemove', (event) => {
   mouse.x = event.clientX
   mouse.y = event.clientY
 })
@@ -133,20 +156,14 @@ addEventListener('mousemove', (event) => {
 
 // Implementation
 
-
-
-
-
 function init() {
-    moving_ball = new ball(canvas.width/2,canvas.height/2 -50,1,1,10);
+    moving_ball = new ball(canvas.width/2,canvas.height/2 -50,0,1,10);
 
-    
-    base_1 = one_platform(canvas.width/2 +10-125 , canvas.height/2 -50+10);
-    console.log(base_1);
-    single_platform = new platform( canvas.width/2 +10-125, canvas.height, -1, 250, 10);
-    platform_list.push(single_platform);
-    console.log(platform_list);
-    
+    addEventListener("keydown",function(event) {
+        moving_ball.move(event);
+    });
+    one_platform(canvas.width/2 +10-125 , canvas.height/2 -50+10 ,250);
+
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].draw();
     }
