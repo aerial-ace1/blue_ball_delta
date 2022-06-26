@@ -51,7 +51,7 @@ img{
 }
 
 
-#play{
+#play,#score{
     text-align: center;
     font-size: large;
     justify-content: center;
@@ -63,4 +63,13 @@ img{
     color: white;
     background: rgba(0,0,0,0.5);
     transition: all 0.75s ease;  
+}
+
+#standings{
+    display: flex;
+    flex-flow: column wrap;
+    align-items:center;
+    align-content: center;
+    justify-content: center;
+    color: black;
 }
