@@ -1,9 +1,11 @@
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+html, body{
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    scroll-behavior: smooth;
+
 }
+
 canvas{
     border: 2px solid #dddddd;
     background-image: url(./background/background-1.jpg);
@@ -11,4 +13,54 @@ canvas{
 
 img{
     display: block;
+}
+
+.navbar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    padding: auto;
+    z-index: 4;
+    background-color: black;
+    font-family: monospace;
+    font-size: 20px;
+    height: 50px;
+    width: 100vw;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+
+}
+
+.navbar div a{
+    color: white;
+    text-decoration: none;
+    transition: all 0.6 ease-out;
+}
+
+
+.navbar div a:hover {
+    text-decoration: underline;
+  }
+  
+.navbar div a:active {
+    text-decoration: underline;
+}
+
+
+#play{
+    text-align: center;
+    font-size: large;
+    justify-content: center;
+    border: .4rem solid black;
+    border-radius: .5rem;
+    text-shadow: 0 0 .5rem black;
+    height: 45px;
+    width: 180px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    transition: all 0.75s ease;  
 }
