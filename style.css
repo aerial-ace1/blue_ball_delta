@@ -74,3 +74,21 @@ img{
     color: black;
 }
 
+#nextbox{
+    position: absolute;
+    left: 42%;
+    top: 50%;
+    background: rgba(245, 245, 245, 0.731);
+    border: .4rem solid black;
+    text-shadow: 0 0 .5rem black;
+    color: #0f0f0f;
+    font-size: x-large;
+    box-shadow: 2px #0f0f0f;
+    height: 20vh;
+    width: 15vw;
+    z-index: 2;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

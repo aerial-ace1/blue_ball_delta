@@ -144,7 +144,7 @@ class spawning_lives{
         this.height = 15;
         this.x = randomIntFromRange(0,canvas.width - this.height);
         this.y = randomIntFromRange(50,canvas.height - this.height);
-        this.frame = 3000;
+        this.frame = 300;
 
         this.draw = function() {
             c.drawImage(heart_img, this.x,this.y,this.height,this.height);

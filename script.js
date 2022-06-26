@@ -33,7 +33,7 @@ function init() {
     platform_list = [];
     heart_list = [];
 
-    moving_ball = new ball(canvas.width/2 - 5, 300 -20,0,1,20);
+    moving_ball = new ball(canvas.width/2 - 5, canvas.height -20,0,1,20);
     window.addEventListener("keydown",movement);
 
     life = new lives();
@@ -42,7 +42,7 @@ function init() {
     
     
     c.fillStyle = c.createPattern(base_1, 'repeat');
-    base_1_platfrom = new platform(canvas.width/2-125 , 300, -1, 250 , 13);
+    base_1_platfrom = new platform(canvas.width/2-125 , canvas.height, -1, 250 , 13);
     platform_list.push(base_1_platfrom);
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].draw();
@@ -86,7 +86,7 @@ function start() {
         hearts = 3;
         playing = true;
     }
-    play_but.innerHTML = "Playing";
+    play_but.innerHTML = "Playing...";
     init();
     animate();
 }
@@ -94,3 +94,12 @@ function start() {
 updateLeader();
 play_but.addEventListener("click",start);
 
+
+setInterval(function() {
+
+    let overlay = document.getElementById('nextbox')
+    if (innerHeight > innerWidth || innerWidth < canvas.width){
+        overlay.style.display = 'flex';
+    }
+    else { overlay.style.display = 'none';}
+} , 1000);
