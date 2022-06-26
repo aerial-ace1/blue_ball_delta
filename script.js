@@ -12,7 +12,7 @@ const mouse = {
   y: innerHeight / 2
 }
 
-const colors = ['#5ffbd6', '#7ECEFD', '#FFF6E5', '#FF7F66']
+const colors = ['#5ffbd6', '#7ECEFD', '#FFF6E5', '#FF0000']
 
 
 class ball {
@@ -25,6 +25,7 @@ class ball {
         this.height = height;
         this.gravity = 0.5
         this.color = colors[1];
+        this.lastkey;
 
         this.draw = function () {
             c.beginPath();
@@ -37,8 +38,11 @@ class ball {
         
         this.update = function () {
 
-            if (this.y  < 20 || this.y > 150){
+  
+            if (this.y  < 20 || this.y > 260){
                 unanimate();
+                window.removeEventListener("keydown",movement);
+                
             }
 
             for (var i = 0; i < platform_list.length; i++) {
@@ -67,15 +71,15 @@ class ball {
 
             if(event.code === 'ArrowRight'){
 
-                this.dx += 1 + this.gravity;
+                this.dx += 10 ;
             }
 
             if(event.code === 'ArrowLeft'){
-                this.dx -= 1 + this.gravity;
+                this.dx -= 10 ;
             }
 
             this.x += this.dx;
-            this.draw();
+            this.update();
         }
     }
 }
@@ -110,16 +114,19 @@ class platform {
     }
 }
 
+function draw_fire(){
+    c.fillStyle = colors[3];
+    c.fillRect(0,0,canvas.width,20);
+}
 
-function one_platform( x = null, y = 300, width = null){
+function one_platform( width = null, x = null, y = 300){
 
-    
     if (x === null){
         x = Math.floor(Math.random() * canvas.width);
     }
 
     if (width === null){
-        width = Math.floor(Math.random() * canvas.width);
+    width = Math.floor(Math.random() * (canvas.width - x ) );
     }
     let single_platform = new platform( x, y, -1, width, 10);
     platform_list.push(single_platform);
@@ -140,29 +147,19 @@ function two_platform( x = 0, y = 305 ){
 
 }
 
-// Event Listeners
-/*addEventListener('mousemove', (event) => {
-  mouse.x = event.clientX
-  mouse.y = event.clientY
-})
 
-/*addEventListener('resize', () => {
-  canvas.width = 700;
-  canvas.height = 300;
-
-  init()
-})*/
+function movement(e){
+    moving_ball.move(e);
+}
 
 
-// Implementation
 
 function init() {
-    moving_ball = new ball(canvas.width/2,canvas.height/2 -50,0,1,10);
-
-    addEventListener("keydown",function(event) {
-        moving_ball.move(event);
-    });
-    one_platform(canvas.width/2 +10-125 , canvas.height/2 -50+10 ,250);
+    moving_ball = new ball(canvas.width/2, 300 -50,0,1,10);
+    draw_fire();    
+    window.addEventListener("keydown",movement);
+    one_platform(250 ,canvas.width/2 +10-125 , 300 -50+10 );
+    one_platform( 250);
 
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].draw();
@@ -173,9 +170,12 @@ function init() {
 // Animation Loop
 function animate() {
     
-    animate_func =requestAnimationFrame(animate)
-    c.clearRect(0, 0, canvas.width, canvas.height)
+    animate_func = requestAnimationFrame(animate);
+    c.clearRect(0, 0, canvas.width, canvas.height);
     moving_ball.update();
+    draw_fire();
+    moving_ball.dx = 0;
+
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].update();
     }
