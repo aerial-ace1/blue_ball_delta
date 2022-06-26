@@ -1,3 +1,5 @@
+var moving_ball;
+
 class ball {
     constructor(x, y, dx, dy, height) {
 
@@ -6,12 +8,13 @@ class ball {
         this.dx = dx;
         this.dy = dy;
         this.height = height;
-        this.gravity = 0.05
+        this.gravity = 0.1
         this.color = colors[1];
         this.lastkey;
-
+        this.img = new Image();
+        this.img.src = "background/ball.png"
         this.draw = function () {
-            c.fillRect(this.x, this.y, this.height, this.height);
+            c.drawImage(this.img,this.x, this.y, this.height, this.height)
         };
         
         this.update = function () {
@@ -23,6 +26,7 @@ class ball {
                 unanimate();
                 window.removeEventListener("keydown",movement);
                 clearInterval(platform_generator);
+                clearInterval(heart_generator);
 
                 if (hearts === 0 ){
                     playing = false;
@@ -86,9 +90,7 @@ class platform {
         this.speed = speed;
         this.width = width;
         this.height = height;
-        this.img = new Image();
-        this.img.src = "background/platform.png"
-        this.pattern = c.createPattern(this.img,'repeat');
+        this.pattern = c.createPattern(base_1,'repeat');
 
         this.draw = function () {
             
@@ -125,15 +127,49 @@ class spike {
 class lives {
     constructor(){
         this.count = hearts
-        this.img = new Image()
-        this.img.src = "background/life.png"
         this.draw =function () {
-            c.drawImage(this.img, 10,55,35,35);
+            this.count = hearts;
+            c.drawImage(heart_img, 10,55,35,35);
             c.fillStyle = colors[2];
             c.font = '18px Arcade';
-            if (this.count != 1){
+            if (this.count != 0){
                 c.fillText(`x ${this.count}`,47,77 )
             }
+        }
+    }
+}
+
+class spawning_lives{
+    constructor(){
+        this.height = 15;
+        this.x = randomIntFromRange(0,canvas.width - this.height);
+        this.y = randomIntFromRange(50,canvas.height - this.height);
+        this.frame = 3000;
+
+        this.draw = function() {
+            c.drawImage(heart_img, this.x,this.y,this.height,this.height);
+        }
+
+        this.remove = function () {
+            for (var i=0; i<heart_list.length; i++) {
+                if (JSON.stringify(this) === JSON.stringify(heart_list[i])){
+                    heart_list.splice(i,1);
+                }
+            }
+        }
+        this.update =function () {
+
+            this.frame -= 1;
+            if ( this.frame === 0 ){
+                this.remove();
+            }
+
+            if (collision( this , moving_ball)){
+                    this.remove();
+                    hearts += 1;
+
+                }
+            this.draw();
         }
     }
 }

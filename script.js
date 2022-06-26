@@ -1,14 +1,24 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
+
 var platform_list = [];
-var platform_generator;
-var hearts;
+var heart_list = [];
+
 var play_but = document.getElementById('play');
 var score_but = document.getElementById('score');
+
+var platform_generator;
+var heart_generator;
+var hearts;
 var score;
 var playing = false;
 var replay;
 var life;
+
+var base_1 = new Image();
+base_1.src = "background/platform.png";
+var heart_img = new Image();
+heart_img.src = "background/life.png";
 
 canvas.width = 700;
 canvas.height = 300;
@@ -21,17 +31,25 @@ function init() {
     
     c.clearRect(0, 0, canvas.width, canvas.height);
     platform_list = [];
+    heart_list = [];
 
-    moving_ball = new ball(canvas.width/2 - 5, 300 -50,0,1,10);
+    moving_ball = new ball(canvas.width/2 - 5, 300 -20,0,1,20);
     window.addEventListener("keydown",movement);
+
     life = new lives();
     life.draw();
-    one_platform(250 ,canvas.width/2-125 , 300 -50+10 );
-    //two_platform();
-    platform_generator = setInterval( platformpicker, 1000);
+
+    
+    
+    c.fillStyle = c.createPattern(base_1, 'repeat');
+    base_1_platfrom = new platform(canvas.width/2-125 , 300, -1, 250 , 13);
+    platform_list.push(base_1_platfrom);
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].draw();
     }
+    platform_generator = setInterval( platformpicker, 1000);
+    heart_generator = setInterval( heart_maker, 8000);
+    
     spikes = new spike("background/spikes.png");
     spikes.draw();    
 }
@@ -48,6 +66,9 @@ function animate() {
     moving_ball.dx = 0;
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].update();
+    }
+    for (var i=0; i<heart_list.length; i++) {
+        heart_list[i].update();
     }
     life.draw();
     spikes.draw(); 
