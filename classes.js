@@ -11,12 +11,7 @@ class ball {
         this.lastkey;
 
         this.draw = function () {
-            c.beginPath();
-            c.rect(this.x, this.y, this.height, this.height);
-            c.fillStyle = this.color;
-            c.fill();
-            c.stroke();
-            c.closePath();
+            c.fillRect(this.x, this.y, this.height, this.height);
         };
         
         this.update = function () {
@@ -91,9 +86,13 @@ class platform {
         this.speed = speed;
         this.width = width;
         this.height = height;
+        this.img = new Image();
+        this.img.src = "background/platform.png"
+        this.pattern = c.createPattern(this.img,'repeat');
 
         this.draw = function () {
-            c.fillStyle = colors[0];
+            
+            c.fillStyle = this.pattern;
             c.fillRect(this.x, this.y, this.width, this.height);
         };
 
@@ -119,5 +118,22 @@ class spike {
     this.draw = function() {
         c.drawImage(this.img, 0, 0, canvas.width, 50);
     }
+    }
+}
+
+
+class lives {
+    constructor(){
+        this.count = hearts
+        this.img = new Image()
+        this.img.src = "background/life.png"
+        this.draw =function () {
+            c.drawImage(this.img, 10,55,35,35);
+            c.fillStyle = colors[2];
+            c.font = '18px Arcade';
+            if (this.count != 1){
+                c.fillText(`x ${this.count}`,47,77 )
+            }
+        }
     }
 }

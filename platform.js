@@ -8,8 +8,9 @@ function one_platform( width = null, x = null, y = 300){
         x = Math.floor(Math.random() * (canvas.width - width));
     }
 
-    let single_platform = new platform( x, y, -1, width, 10);
+    let single_platform = new platform( x, y, -1, width, 13);
     platform_list.push(single_platform);
+    single_platform.draw();
 
 }
 

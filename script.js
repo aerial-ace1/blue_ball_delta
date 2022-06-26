@@ -8,7 +8,7 @@ var score_but = document.getElementById('score');
 var score;
 var playing = false;
 var replay;
-
+var life;
 
 canvas.width = 700;
 canvas.height = 300;
@@ -20,13 +20,14 @@ const colors = ['#5ffbd6', '#7ECEFD', '#FFF6E5', '#FF0000']
 function init() {
     
     c.clearRect(0, 0, canvas.width, canvas.height);
-    platform_list =[]
+    platform_list = [];
 
     moving_ball = new ball(canvas.width/2 - 5, 300 -50,0,1,10);
     window.addEventListener("keydown",movement);
-    
+    life = new lives();
+    life.draw();
     one_platform(250 ,canvas.width/2-125 , 300 -50+10 );
-    two_platform();
+    //two_platform();
     platform_generator = setInterval( platformpicker, 1000);
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].draw();
@@ -48,6 +49,7 @@ function animate() {
     for (var i=0; i<platform_list.length; i++) {
         platform_list[i].update();
     }
+    life.draw();
     spikes.draw(); 
 }
 
