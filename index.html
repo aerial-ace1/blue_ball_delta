@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8>
+  <title>Blue Ball</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+    <section class="navbar top" >
+        <div id="name"><a href="index.html">Blue Ball</a></div>
+    </section>    
+    <section class="navbar">
+        <div id="rulelink"><a href="#HowToPlay">How to Play?</a></div>
+        <div><a href="#LeaderBoard">LeaderBoard</a></div>
+    </section>
+
+    <br>
+    <br>    
+    <section id="gamegrid">
+      <canvas>ad</canvas>
+    </section>
+
+    <br>
+    <br>
+
+    <section id="playbox">
+      <button id="play">
+        Play
+      </button>
+      <button disabled id="scrbut">Score: <span id="score"></span></button>
+    </section>
+
+    <section class="navbar" id = "HowToPlay">
+        <div>
+                How to Play?
+        </div>
+    </section>
+
+    <section id ='rules'>
+            <ol>
+                    <li>Press Play</li>
+                    <li>Use the Left and Right Arrow Keys to move the shell left or right</li>
+                    <li>Keep track of your lives with the heart symbol on the top right corner</li>
+                    <li>Beware of the spiked platforms and fragile platforms as they disappear</li>
+                    <li>Seek out purple stars as they enable you to move fast</li>
+                    <li>Stay away from bananas as they slow you down</li>
+                    <li>Play and make your way onto the LeaderBoard</li>
+            </ol>
+    </section>
+
+    <section class="navbar" id = "LeaderBoard">
+        <div>
+                LeaderBoard
+        </div>
+    </section>
+    <br>
+    <section id="standings">
+        <div class="lead">1. <span id="first"></span></div>
+        <div class="lead">2. <span id="second"></span></div>
+        <div class="lead">3. <span id="third"></span></div>
+    </section>
+
+    <script src="util.js"></script>
+    <script src="classes.js"></script>
+    <script src="powerups.js"></script>
+    <script src="platform.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
