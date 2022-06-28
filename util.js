@@ -24,10 +24,8 @@ function playerScore( sessionScore ){
 
     }
     scoreList.push(sessionScore);
-    console.log(scoreList);
-    scoreList.sort();
+    scoreList.sort(compareNumbers);
     scoreList.reverse();
-    console.log(scoreList);
     for (let i=0; i<3;i++){
         localStorage.setItem(leaderBoard[i],scoreList[i]); 
     }
@@ -101,3 +99,7 @@ function play_audio(id){
     audio.currentTime = 0;
     audio.play();
 }
+
+function compareNumbers(a, b) {
+    return a - b;
+  }
