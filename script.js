@@ -18,6 +18,7 @@ var replay;
 var life;
 var platform_speed;
 var platform_range;
+var active = false;
 
 var base_1 = new Image();
 base_1.src = "background/platform.png";
@@ -70,27 +71,28 @@ function init() {
 // Animation Loop
 function animate() {
     
-    score_but.innerHTML = score;
-    platform_speed -= score / 100000000;
-
     animate_func = requestAnimationFrame(animate);
-    c.clearRect(0, 0, canvas.width, canvas.height);
-    moving_ball.update();
-    moving_ball.dx = 0;
-    for (var i=0; i<platform_list.length; i++) {
-        platform_list[i].update();
+    if (!active){
+        score_but.innerHTML = score;
+        platform_speed -= score / 100000000;
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        moving_ball.update();
+        moving_ball.dx = 0;
+        for (var i=0; i<platform_list.length; i++) {
+            platform_list[i].update();
+        }
+        for (var i=0; i<heart_list.length; i++) {
+            heart_list[i].update();
+        }
+        for (var i=0; i<banana_list.length; i++) {
+            banana_list[i].update();
+        }
+        for (var i=0; i<boost_list.length; i++) {
+            boost_list[i].update();
+        }
+        life.draw();
+        spikes.draw(); 
     }
-    for (var i=0; i<heart_list.length; i++) {
-        heart_list[i].update();
-    }
-    for (var i=0; i<banana_list.length; i++) {
-        banana_list[i].update();
-    }
-    for (var i=0; i<boost_list.length; i++) {
-        boost_list[i].update();
-    }
-    life.draw();
-    spikes.draw(); 
 }
 
 function unanimate(){
@@ -105,7 +107,7 @@ function start() {
         hearts = 3;
         playing = true;
     }
-    play_but.innerHTML = "Playing...";
+    play_but.innerHTML = "Playing..";
     init();
     animate();
 }

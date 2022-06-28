@@ -25,7 +25,6 @@ class ball {
 
   
             if (this.y  < 50 || this.y > 290){
-                
                 end();
             }
 

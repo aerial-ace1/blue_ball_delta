@@ -79,6 +79,7 @@ function end(){
     score_but.innerHTML = score;
 
     if (hearts === 0 ){
+        play_audio("end");
         playing = false;
         playerScore(score);
         play_but.innerHTML = "Restart";
@@ -89,4 +90,14 @@ function end(){
             start()
         }, 1000);
     }
+}
+
+document.addEventListener('visibilitychange', function (event) {
+    active = document.hidden;
+});
+
+function play_audio(id){
+    let audio = document.querySelector(`#${id}`);
+    audio.currentTime = 0;
+    audio.play();
 }

@@ -25,6 +25,7 @@ class spawning_lives{
             }
 
             if (collision( this , moving_ball)){
+                    play_audio("heart");
                     this.remove();
                     hearts += 1;
 
@@ -60,6 +61,7 @@ class spawning_banana{
             }
 
             if (collision( this , moving_ball)){
+                    play_audio("powerdown");
                     this.remove();
                     moving_ball.xgravity = 8;
                     setTimeout( function () {
@@ -99,6 +101,7 @@ class spawning_boost{
             }
 
             if (collision( this , moving_ball)){
+                    play_audio("powerup");
                     this.remove();
                     moving_ball.xgravity = -8;
                     setTimeout( function () {

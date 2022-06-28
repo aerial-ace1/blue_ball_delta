@@ -30,7 +30,7 @@
       <button id="play">
         Play
       </button>
-      <button disabled id="scrbut">Score: <span id="score"></span></button>
+      <button disabled id="scrbut"><span id="score">Score</span></button>
     </section>
 
     <section class="navbar" id = "HowToPlay">
@@ -44,7 +44,7 @@
                     <li>Press Play</li>
                     <li>Use the Left and Right Arrow Keys to move the shell left or right</li>
                     <li>Keep track of your lives with the heart symbol on the top right corner</li>
-                    <li>Beware of the spiked platforms and fragile platforms as they disappear</li>
+                    <li>Beware of the spiked platforms and fragile platfrms as they disappear</li>
                     <li>Seek out purple stars as they enable you to move fast</li>
                     <li>Stay away from bananas as they slow you down</li>
                     <li>Play and make your way onto the LeaderBoard</li>
@@ -63,6 +63,11 @@
         <div class="lead">3. <span id="third"></span></div>
     </section>
 
+    <audio id="end" src="sound/end.wav"></audio>
+    <audio id="collision" src="sound/collision.wav"></audio>
+    <audio id="heart" src="sound/heart.wav"></audio>
+    <audio id="powerup" src="sound/powerup.wav"></audio>
+    <audio id="powerdown" src="sound/powerdown.wav"></audio>
     <script src="util.js"></script>
     <script src="classes.js"></script>
     <script src="powerups.js"></script>
