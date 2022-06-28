@@ -48,7 +48,7 @@ function init() {
     platform_speed = -0.7
     platform_range = 10;
 
-    moving_ball = new ball(canvas.width/2 - 5, canvas.height -50,0,1,20);
+    moving_ball = new ball(canvas.width/2 - 5, canvas.height -100,0,1,20);
     window.addEventListener("keydown",movement);
 
     life = new lives();

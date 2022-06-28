@@ -29,7 +29,9 @@ class ball {
             }
 
             for (var i = 0; i < platform_list.length; i++) {
-                if (collision(moving_ball,platform_list[i])) {
+                if (this.y < platform_list[i].y &&
+                     platform_list[i].y - this.y - this.dy < this.height && 
+                     Math.abs(platform_list[i].x + platform_list[i].width/2 - this.x - this.height/2) < platform_list[i].width/2) {
                         if (platform_list[i].type == "spiky") {
                             end();
                         }
