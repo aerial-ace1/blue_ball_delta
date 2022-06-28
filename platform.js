@@ -1,3 +1,11 @@
+function platform_style(){
+    index = Math.floor(score/1000);
+    platform_range -= index;
+    number = randomIntFromRange(0,platform_range);
+    if ( number === 0) {return "fragile";}
+    else if (number === 1) {return "spiky";}
+    else {return null;}
+}
 function one_platform( width = null, x = null, y = canvas.height){
 
     if (width === null){
@@ -8,7 +16,8 @@ function one_platform( width = null, x = null, y = canvas.height){
         x = Math.floor(Math.random() * (canvas.width - width));
     }
 
-    let single_platform = new platform( x, y, -1, width, 13);
+    type = platform_style();
+    let single_platform = new platform( x, y, platform_speed, width, 13, type);
     platform_list.push(single_platform);
     single_platform.draw();
 

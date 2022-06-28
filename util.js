@@ -20,10 +20,11 @@ function updateLeader(){
 function playerScore( sessionScore ){
     scoreList = []
     for (let i=0; i<3;i++){
-        scoreList.push(localStorage.getItem(leaderBoard[i]));
+        scoreList.push(Number(localStorage.getItem(leaderBoard[i])));
 
     }
     scoreList.push(sessionScore);
+    console.log(scoreList);
     scoreList.sort();
     scoreList.reverse();
     console.log(scoreList);
@@ -40,6 +41,26 @@ function heart_maker() {
     new_heart.draw();
 }
 
+function banana_maker() {
+    new_banana = new spawning_banana();
+    banana_list.push(new_banana);
+    new_banana.draw();
+}
+
+function boost_maker() {
+    new_boost = new spawning_boost();
+    boost_list.push(new_boost);
+    new_boost.draw();
+}
+
+function powerup_caller() {
+
+    picker = randomIntFromRange(1,3);
+    if (picker === 1) { heart_maker();}
+    else if (picker === 2) { banana_maker();}
+    else { boost_maker();}
+}
+
 function collision( r1, r2 ) {
     return (
       r1.x + r1.height >= r2.x &&
@@ -48,3 +69,24 @@ function collision( r1, r2 ) {
       r1.y <= r2.y + r2.height
     )
   }
+
+function end(){
+    hearts -= 1;
+    unanimate();
+    window.removeEventListener("keydown",movement);
+    clearInterval(platform_generator);
+    clearInterval(powerup_generator);
+    score_but.innerHTML = score;
+
+    if (hearts === 0 ){
+        playing = false;
+        playerScore(score);
+        play_but.innerHTML = "Restart";
+        play_but.addEventListener("click",start);
+    }
+    else {
+        replay = setTimeout( function () {
+            start()
+        }, 1000);
+    }
+}
